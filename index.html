@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Мій Проект</title>
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* Google Fonts - для імпорту шрифтів */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@400;700&display=swap');
+
+        /* Основні налаштування */
+        :root {
+            --main-bg-color-start: #fcebc5;
+            --main-bg-color-end: #e5ac76;
+            --container-bg-color: rgba(255, 255, 255, 0.9);
+            --primary-color: #4a3424;
+            --secondary-color: #8c7159;
+            --accent-color: #d67a2b; /* Добавляем акцентный цвет */
+            --font-family-main: 'Montserrat', sans-serif;
+            --font-family-heading: 'Playfair Display', serif;
+        }
+
+        /* Загальні стилі для body */
+        body {
+            font-family: var(--font-family-main);
+            margin: 0;
+            padding: 40px 20px;
+            color: var(--primary-color);
+            min-height: 100vh;
+            overflow-x: hidden; /* Запрещаем горизонтальную прокрутку */
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Применяем новый, более "живой" градиент */
+            background: linear-gradient(135deg, #fff7e6 0%, #fcebc5 40%, #e5ac76 100%);
+            z-index: -2;
+        }
+
+        /* Стилі для основного контенту */
+        .main-container {
+            position: relative;
+            z-index: 10;
+            width: 100%; /* Растягиваем на 100% ширины родителя */
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            /* Увеличиваем прозрачность и размытие */
+            background: rgba(255,255,255,0.7);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px); /* Увеличиваем размытие */
+            -webkit-backdrop-filter: blur(10px);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        /* Ефект при наведенні */
+        .main-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 55px rgba(0, 0, 0, 0.3);
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .slogan-title, .section-title {
+            font-family: var(--font-family-heading);
+            color: var(--primary-color);
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            /* Добавляем плавный переход */
+            transition: color 0.3s ease;
+            letter-spacing: 1.5px; /* Добавим межбуквенный интервал для заголовков */
+        }
+        
+        /* Добавляем hover-эффект для заголовков */
+        .section-title:hover {
+            color: #b85e12;
+        }
+
+        .slogan-text, .section-text {
+            font-size: 1.2em;
+            line-height: 1.6;
+            color: var(--secondary-color);
+            max-width: 600px;
+            margin: 10px auto;
+            text-align: center;
+        }
+
+        .vision-text {
+            font-size: 1.3em;
+            line-height: 1.6;
+            font-style: italic;
+            color: var(--primary-color);
+            text-align: center;
+        }
+
+        .info-list, .plan-list {
+            text-align: left;
+            max-width: 600px;
+            margin: 20px auto;
+            padding-left: 20px;
+            list-style-type: none;
+        }
+
+        .info-list li, .plan-list li {
+            margin-bottom: 10px;
+            line-height: 1.6;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .info-list li:hover, .plan-list li:hover {
+            color: var(--accent-color);
+            transform: translateX(5px);
+        }
+
+        .plan-title {
+            font-family: var(--font-family-heading);
+            font-size: 1.5em;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .plan-list ul {
+            list-style-type: none;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .plan-list li {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .emoji {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .divider {
+            border: none;
+            height: 1px;
+            background-color: rgba(74, 52, 36, 0.2);
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .divider-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-size: 2em;
+            color: var(--accent-color);
+            margin: 40px auto;
+            position: relative;
+        }
+
+        .divider-icon::before, .divider-icon::after {
+            content: '';
+            flex-grow: 1;
+            height: 1px;
+            background-color: rgba(74, 52, 36, 0.2);
+            margin: 0 10px;
+        }
+
+        /* Стилі для анімації листя */
+        .leaf-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .leaf {
+            position: absolute;
+            top: -100px;
+            opacity: 0;
+            pointer-events: none;
+            z-index: -1;
+            will-change: transform, opacity;
+        }
+
+        /* Анімація падіння і обертання (с добавлением покачивания) */
+        @keyframes fall {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            25% { transform: translate(50px, 25vh) rotate(180deg); opacity: 0.7; }
+            50% { transform: translate(-50px, 50vh) rotate(360deg); opacity: 0.7; }
+            75% { transform: translate(50px, 75vh) rotate(540deg); opacity: 0.7; }
+            100% { transform: translate(0, 100vh) rotate(720deg); opacity: 0; }
+        }
+
+        /* Стилі для анімації світяться частинок */
+        .glowing-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .glowing-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+            pointer-events: none;
+            opacity: 0;
+            will-change: transform, opacity;
+        }
+
+        /* Анімація руху і загасання */
+        @keyframes moveAndFade {
+            0% { transform: translate(var(--start-x), var(--start-y)) scale(0); opacity: 0; }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% { transform: translate(var(--end-x), var(--end-y)) scale(1.2); opacity: 0; }
+        }
+
+        /* Стилі для кнопки */
+        .control-panel {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Добавляем расстояние между кнопками */
+        }
+
+        .control-button {
+            padding: 8px 12px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: var(--font-family-main);
+            font-size: 1em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .control-button:hover {
+            background-color: #c96d24;
+            transform: translateY(-2px);
+        }
+
+        /* Стиль для стрелки вниз */
+        .scroll-down-arrow-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            cursor: pointer;
+            transition: opacity 0.5s ease-in-out;
+            opacity: 1;
+        }
+
+        .scroll-down-arrow-container.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scroll-down-arrow-image {
+            width: 80px; /* Увеличил размер */
+            height: auto;
+            animation: bounce 2s infinite;
+            filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.8));
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-15px); 
+            }
+            60% {
+                transform: translateY(-8px);
+            }
+        }
+
+        /* Медіа-запити для адаптивності на телефонах */
+        @media (max-width: 600px) {
+            body {
+                padding: 0; 
+            }
+            .main-container {
+                width: calc(100% - 20px); 
+                margin: 10px auto; 
+                padding: 20px 15px; 
+            }
+            .slogan-title, .section-title {
+                font-size: 1.8em; 
+                letter-spacing: 1px; 
+            }
+            .slogan-text, .section-text {
+                font-size: 1em; 
+            }
+            .vision-text {
+                font-size: 1.1em;
+            }
+            .divider-icon::before, .divider-icon::after {
+                margin: 0 5px;
+            }
+            .control-panel {
+                top: 10px;
+                right: 10px;
+                flex-direction: column-reverse;
+                gap: 5px;
+            }
+            .control-button {
+                padding: 12px 18px; /* Уменьшен размер для удобства нажатия */
+                font-size: 1em; /* Уменьшен размер шрифта */
+            }
+            .scroll-down-arrow-container {
+                bottom: 20px; /* Увеличен отступ от низа */
+                right: 20px; /* Увеличен отступ от края */
+            }
+            .scroll-down-arrow-image {
+                width: 80px; /* Большой размер на телефонах */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="leaf-container" class="leaf-container"></div>
+    <div id="glowing-container" class="glowing-container"></div>
+    
+    <div class="control-panel">
+        <!-- Кнопка для отключения/включения анимации -->
+        <button id="toggleAnimation" class="control-button">Отключить анимацию</button>
+    </div>
+
+    <!-- Стрелка, которая призывает прокрутить вниз -->
+    <div id="scrollDownArrow" class="scroll-down-arrow-container">
+        <img src="стрілка1.png" alt="Прокрутить вниз" class="scroll-down-arrow-image">
+    </div>
+
+    <div class="main-container">
+        <div class="section" data-aos="fade-up">
+            <h1 class="slogan-title">Моє гасло</h1>
+            <p class="slogan-text">Обери відповідальність — обери зміни!</p>
+            <p class="slogan-text">Підтримай мене — підтримай розвиток школи!</p>
+        </div>
+
+        <div class="divider-icon" data-aos="fade-up" data-aos-delay="200">🍂</div>
+
+        <div class="section" data-aos="fade-up">
+            <h2 class="section-title">Про мене</h2>
+            <p class="section-text">Я — Татара Софія, учениця 10-ПЗ класу.</p>
+            <ul class="info-list">
+                <li>• Маю досвід роботи у шкільному самоврядуванні: була міністром учнівського комітету та правою рукою президента в іншій школі.</li>
+                <li>• Пройшла тренінги з лідерства та командної роботи.</li>
+                <li>• Провідна спортсменка міста, пропагую здоровий спосіб життя.</li>
+                <li>• Знаю, як організовувати події чітко й узгоджено з адміністрацією, без шкоди для навчального процесу.</li>
+            </ul>
+        </div>
+
+        <div class="divider-icon" data-aos="fade-up" data-aos-delay="200">🍂</div>
+
+        <div class="section" data-aos="fade-up">
+            <h2 class="section-title">Моє бачення</h2>
+            <p class="vision-text">Хочу створити дружну шкільну родину без булінгу, де кожен учень почуватиметься у безпеці навіть під час війни, матиме підтримку та можливості для самореалізації.</p>
+        </div>
+
+        <div class="divider-icon" data-aos="fade-up" data-aos-delay="200">🍂</div>
+
+        <div class="section" data-aos="fade-up">
+            <h2 class="section-title">Мій план на сьогоднішній день</h2>
+            <ul class="plan-list">
+                <li>
+                    <h3 class="plan-title">1. Шкільні та благодійні ярмарки</h3>
+                    <ul>
+                        <li><span class="emoji">🥧</span> Випічка, вироби ручної роботи (для підтримки талантів).</li>
+                        <li><span class="emoji">💰</span> Збір коштів для ЗСУ, лікарень, притулків (важливий внесок у нашу спільну справу).</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3 class="plan-title">2. Тематичні тижні</h3>
+                    <ul>
+                        <li><span class="emoji">🎨</span> Тиждень кольорів, творчості, українських традицій (щоб кожен міг проявити себе).</li>
+                        <li><span class="emoji">🎁</span> Дні подяки вчителям (адже вони заслуговують на визнання), конкурси, виставки, майстер-класи (для розвитку навичок).</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3 class="plan-title">3. Заходи та конкурси</h3>
+                    <ul>
+                        <li><span class="emoji">🎲</span> Настільні ігри, вікторини (відпочинок і змагання під час перерв).</li>
+                        <li><span class="emoji">🎒</span> «День без портфелів», «День навпаки» (веселощі та розваги, які розвантажать нас).</li>
+                        <li><span class="emoji">🤝</span> Антибулінг-уроки для молодших класів (формуємо дружнє середовище).</li>
+                        <li><span class="emoji">🎉</span> Свята та декорації (щоб зробити школу святковою).</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3 class="plan-title">4. Покращення середовища</h3>
+                    <ul>
+                        <li><span class="emoji">🌳</span> Озеленення школи (щоб наше середовище було приємнішим).</li>
+                        <li><span class="emoji">🕊️</span> Годівниці для птахів (допомагаємо природі).</li>
+                    </ul>
+                </li>
+                <li>
+                    <h3 class="plan-title">5. Відпочинок і релакс</h3>
+                    <ul>
+                        <li><span class="emoji">🎵</span> Спокійна музика на великих перервах (для зняття стресу).</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="divider-icon" data-aos="fade-up" data-aos-delay="200">🍂</div>
+
+        <div class="section" data-aos="fade-up">
+            <h2 class="section-title">Мій заклик до вас</h2>
+            <p class="section-text">Друзі, я дуже хочу змін для нас усіх, але без вас це неможливо. Ваш голос — це шанс втілити нові ідеї, зробити школу цікавішою, безпечнішою та дружнішою. Я обіцяю працювати чесно й відповідально, враховуючи думку кожного. Тому прошу, підтримайте мене своїм голосом — разом ми зможемо більше!</p>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+        });
+
+        const leafImages = [
+            "листок1.png",
+            "листок2.png"
+        ];
+
+        const maxLeaves = 50;
+        const leafContainer = document.getElementById('leaf-container');
+        let activeLeaves = 0;
+        let animationId = null; 
+
+        function createLeaf() {
+            if (activeLeaves >= maxLeaves) {
+                return;
+            }
+
+            const leaf = document.createElement('img');
+            leaf.classList.add('leaf');
+            leaf.src = leafImages[Math.floor(Math.random() * leafImages.length)];
+            leaf.style.width = `${Math.random() * 40 + 40}px`;
+            leaf.style.left = `${Math.random() * 80 + 10}%`;
+            
+            const duration = Math.random() * 4 + 3;
+            leaf.style.animation = `fall ${duration}s linear`;
+            
+            leafContainer.appendChild(leaf);
+            activeLeaves++;
+
+            leaf.addEventListener('animationend', () => {
+                leafContainer.removeChild(leaf);
+                activeLeaves--;
+            });
+        }
+
+        const maxCircles = 30;
+        const glowingContainer = document.getElementById('glowing-container');
+        let activeCircles = 0;
+
+        function createGlowingCircle() {
+            if (activeCircles >= maxCircles) {
+                return;
+            }
+
+            const circle = document.createElement('div');
+            circle.classList.add('glowing-circle');
+
+            const size = Math.random() * 50 + 20;
+            circle.style.width = `${size}px`;
+            circle.style.height = `${size}px`;
+
+            const startX = Math.random() * 100;
+            const startY = 100;
+            const endX = Math.random() * 100;
+            const endY = -100;
+
+            circle.style.setProperty('--start-x', `${startX}vw`);
+            circle.style.setProperty('--start-y', `${startY}vh`);
+            circle.style.setProperty('--end-x', `${endX}vw`);
+            circle.style.setProperty('--end-y', `${endY}vh`);
+
+            const duration = Math.random() * 15 + 10;
+            const delay = Math.random() * 5;
+            circle.style.animation = `moveAndFade ${duration}s ease-in-out`;
+            circle.style.animationDelay = `${delay}s`;
+
+            glowingContainer.appendChild(circle);
+            activeCircles++;
+
+            circle.addEventListener('animationend', () => {
+                glowingContainer.removeChild(circle);
+                activeCircles--;
+            });
+        }
+
+        function animate() {
+            createLeaf();
+            createGlowingCircle();
+            animationId = requestAnimationFrame(animate);
+        }
+
+        const toggleButton = document.getElementById('toggleAnimation');
+        let animationEnabled = true;
+
+        toggleButton.addEventListener('click', () => {
+            animationEnabled = !animationEnabled;
+            if (animationEnabled) {
+                toggleButton.textContent = "Отключить анимацию";
+                activeLeaves = 0;
+                activeCircles = 0;
+                animate();
+            } else {
+                toggleButton.textContent = "Включить анимацию";
+                if (animationId) {
+                    cancelAnimationFrame(animationId);
+                    animationId = null; 
+                }
+                leafContainer.innerHTML = '';
+                glowingContainer.innerHTML = '';
+                activeLeaves = 0;
+                activeCircles = 0;
+            }
+        });
+        
+        // Новый код для стрелки прокрутки вниз
+        const scrollDownArrow = document.getElementById('scrollDownArrow');
+        
+        function checkScrollPosition() {
+            // Высота всего документа
+            const documentHeight = document.documentElement.scrollHeight;
+            // Текущая позиция прокрутки + высота видимой области
+            const scrollPosition = window.scrollY + window.innerHeight;
+            
+            // Порог, чтобы скрыть стрелку, например, за 500px до конца страницы
+            const hideThreshold = documentHeight - 500; 
+
+            if (scrollPosition > hideThreshold) {
+                scrollDownArrow.classList.add('hidden');
+            } else {
+                scrollDownArrow.classList.remove('hidden');
+            }
+        }
+
+        // Слушатель событий для прокрутки
+        window.addEventListener('scroll', checkScrollPosition);
+        // Проверяем позицию при загрузке страницы
+        window.addEventListener('load', checkScrollPosition);
+
+        // Добавляем обработчик клика для прокрутки вниз на 1000px
+        scrollDownArrow.addEventListener('click', () => {
+            window.scrollBy({
+                top: 1000,
+                behavior: 'smooth'
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            animate();
+        });
+    </script>
+</body>
+</html>
