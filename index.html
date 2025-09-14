@@ -194,6 +194,7 @@
             pointer-events: none;
             z-index: -1;
             will-change: transform, opacity;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
         }
 
         /* Анімація падіння та обертання */
@@ -530,8 +531,10 @@
             leaf.classList.add('leaf');
             leaf.src = leafImages[Math.floor(Math.random() * leafImages.length)];
             
-            const baseSize = window.innerWidth < 600 ? 20 : 40; 
-            const leafSize = Math.random() * baseSize + baseSize; 
+            // Мінімальний і максимальний розмір листка
+            const minSize = window.innerWidth < 600 ? 35 : 60;
+            const maxSize = window.innerWidth < 600 ? 60 : 120;
+            const leafSize = Math.random() * (maxSize - minSize) + minSize;
             leaf.style.width = `${leafSize}px`;
 
             const maxLeft = window.innerWidth - leafSize;
