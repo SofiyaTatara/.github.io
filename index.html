@@ -183,15 +183,25 @@
             pointer-events: none;
             z-index: -1;
         }
-
-        .leaf {
+        
+        /* Виправлена анімація: обгортаємо листок у контейнер */
+        .leaf-wrapper {
             position: absolute;
             top: -100px;
-            opacity: 0;
+            left: 0;
+            will-change: transform;
             pointer-events: none;
             z-index: -1;
+            animation: sway 3s ease-in-out infinite; /* Анімація коливання */
+        }
+        
+        .leaf {
+            display: block;
+            width: 100%;
+            height: auto;
             will-change: transform, opacity;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+            animation: fall var(--fall-duration) linear forwards; /* Анімація падіння */
         }
 
         /* Анімація падіння та обертання */
@@ -205,10 +215,6 @@
         @keyframes sway {
           0%, 100% { transform: translateX(0); }
           50% { transform: translateX(15px); }
-        }
-
-        .leaf {
-            animation: fall var(--fall-duration) linear, sway 3s ease-in-out infinite;
         }
 
         /* Стиль для анімації частинок, що світяться */
@@ -460,6 +466,9 @@
                 return;
             }
 
+            const leafWrapper = document.createElement('div');
+            leafWrapper.classList.add('leaf-wrapper');
+
             const leaf = document.createElement('img');
             leaf.classList.add('leaf');
             leaf.src = leafImages[Math.floor(Math.random() * leafImages.length)];
@@ -467,23 +476,24 @@
             const minSize = window.innerWidth < 600 ? 35 : 60;
             const maxSize = window.innerWidth < 600 ? 60 : 120;
             const leafSize = Math.random() * (maxSize - minSize) + minSize;
-            leaf.style.width = `${leafSize}px`;
+            leafWrapper.style.width = `${leafSize}px`;
 
             const maxLeft = window.innerWidth - leafSize;
-            leaf.style.left = `${Math.random() * maxLeft}px`;
+            leafWrapper.style.left = `${Math.random() * maxLeft}px`;
 
             leaf.style.setProperty('--fall-rotate', `${Math.random() * 720 + 360}deg`);
             leaf.style.setProperty('--fall-scale', `${Math.random() * 0.5 + 0.8}`);
             
             const duration = Math.random() * 6 + 4; 
             leaf.style.setProperty('--fall-duration', `${duration}s`);
-
-            leafContainer.appendChild(leaf);
+            
+            leafWrapper.appendChild(leaf);
+            leafContainer.appendChild(leafWrapper);
             activeLeaves++;
 
             leaf.addEventListener('animationend', () => {
-                if (leaf.parentElement) {
-                    leafContainer.removeChild(leaf);
+                if (leafWrapper.parentElement) {
+                    leafContainer.removeChild(leafWrapper);
                 }
                 activeLeaves--;
             });
