@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Мій Проект</title>
+    <title>Осіннє натхнення</title>
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
@@ -17,7 +17,7 @@
             --container-bg-color: rgba(255, 255, 255, 0.9);
             --primary-color: #4a3424;
             --secondary-color: #8c7159;
-            --accent-color: #d67a2b; /* Добавляем акцентный цвет */
+            --accent-color: #d67a2b; /* Додаємо акцентний колір */
             --font-family-main: 'Montserrat', sans-serif;
             --font-family-heading: 'Playfair Display', serif;
         }
@@ -29,7 +29,7 @@
             padding: 40px 20px;
             color: var(--primary-color);
             min-height: 100vh;
-            overflow-x: hidden; /* Запрещаем горизонтальную прокрутку */
+            overflow-x: hidden; /* Забороняємо горизонтальну прокрутку */
         }
 
         body::before {
@@ -39,25 +39,25 @@
             left: 0;
             width: 100%;
             height: 100%;
-            /* Применяем новый, более "живой" градиент */
+            /* Застосовуємо новий, більш "живий" градієнт */
             background: linear-gradient(135deg, #fff7e6 0%, #fcebc5 40%, #e5ac76 100%);
             z-index: -2;
         }
 
-        /* Стилі для основного контенту */
+        /* Стиль для основного контенту */
         .main-container {
             position: relative;
             z-index: 10;
-            width: 100%; /* Растягиваем на 100% ширины родителя */
+            width: 100%; /* Розтягуємо на 100% ширини батьківського елемента */
             max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
-            /* Увеличиваем прозрачность и размытие */
-            background: rgba(255,255,255,0.7);
+            /* Зменшуємо непрозорість, щоб листя було видно краще */
+            background: rgba(255,255,255,0.4);
             border-radius: 12px;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px); /* Увеличиваем размытие */
-            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(8px); /* Зменшуємо розмиття */
+            -webkit-backdrop-filter: blur(8px);
             transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
@@ -78,12 +78,12 @@
             margin-bottom: 5px;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
             text-align: center;
-            /* Добавляем плавный переход */
+            /* Додаємо плавний перехід */
             transition: color 0.3s ease;
-            letter-spacing: 1.5px; /* Добавим межбуквенный интервал для заголовков */
+            letter-spacing: 1.5px; /* Додамо міжбуквений інтервал для заголовків */
         }
         
-        /* Добавляем hover-эффект для заголовков */
+        /* Додаємо hover-ефект для заголовків */
         .section-title:hover {
             color: #b85e12;
         }
@@ -176,7 +176,7 @@
             margin: 0 10px;
         }
 
-        /* Стилі для анімації листя */
+        /* Стиль для анімації листя */
         .leaf-container {
             position: fixed;
             top: 0;
@@ -196,16 +196,16 @@
             will-change: transform, opacity;
         }
 
-        /* Анімація падіння і обертання (с добавлением покачивания) */
+        /* Анімація падіння та обертання (з додаванням погойдування) */
         @keyframes fall {
             0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
-            25% { transform: translate(50px, 25vh) rotate(180deg); opacity: 0.7; }
-            50% { transform: translate(-50px, 50vh) rotate(360deg); opacity: 0.7; }
-            75% { transform: translate(50px, 75vh) rotate(540deg); opacity: 0.7; }
+            25% { transform: translate(var(--wobble-x), 25vh) rotate(180deg); opacity: 0.5; }
+            50% { transform: translate(calc(var(--wobble-x) * -1), 50vh) rotate(360deg); opacity: 0.5; }
+            75% { transform: translate(var(--wobble-x), 75vh) rotate(540deg); opacity: 0.5; }
             100% { transform: translate(0, 100vh) rotate(720deg); opacity: 0; }
         }
 
-        /* Стилі для анімації світяться частинок */
+        /* Стиль для анімації частинок, що світяться */
         .glowing-container {
             position: fixed;
             top: 0;
@@ -225,7 +225,7 @@
             will-change: transform, opacity;
         }
 
-        /* Анімація руху і загасання */
+        /* Анімація руху та згасання */
         @keyframes moveAndFade {
             0% { transform: translate(var(--start-x), var(--start-y)) scale(0); opacity: 0; }
             20% { opacity: 0.5; }
@@ -233,7 +233,7 @@
             100% { transform: translate(var(--end-x), var(--end-y)) scale(1.2); opacity: 0; }
         }
 
-        /* Стилі для кнопки */
+        /* Стиль для кнопки */
         .control-panel {
             position: fixed;
             top: 10px;
@@ -241,18 +241,18 @@
             z-index: 1000;
             display: flex;
             align-items: center;
-            gap: 10px; /* Добавляем расстояние между кнопками */
+            gap: 10px; /* Додаємо відстань між кнопками */
         }
 
         .control-button {
-            padding: 8px 12px;
+            padding: 5px 10px; /* Зменшений розмір кнопки */
             background-color: var(--accent-color);
             color: white;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-family: var(--font-family-main);
-            font-size: 1em;
+            font-size: 0.9em; /* Зменшений розмір шрифту */
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
@@ -262,7 +262,7 @@
             transform: translateY(-2px);
         }
 
-        /* Стиль для стрелки вниз */
+        /* Стиль для стрілки вниз */
         .scroll-down-arrow-container {
             position: fixed;
             bottom: 20px;
@@ -279,7 +279,7 @@
         }
 
         .scroll-down-arrow-image {
-            width: 80px; /* Увеличил размер */
+            width: 80px; /* Збільшив розмір */
             height: auto;
             animation: bounce 2s infinite;
             filter: drop-shadow(0 0 10px rgba(255, 140, 0, 0.8));
@@ -292,7 +292,7 @@
             40% {
                 transform: translateY(-15px); 
             }
-            60% {
+                60% {
                 transform: translateY(-8px);
             }
         }
@@ -312,7 +312,7 @@
                 letter-spacing: 1px; 
             }
             .slogan-text, .section-text {
-                font-size: 1em; 
+                font-size: 1.1em; /* Збільшуємо розмір шрифту */
             }
             .vision-text {
                 font-size: 1.1em;
@@ -327,15 +327,15 @@
                 gap: 5px;
             }
             .control-button {
-                padding: 12px 18px; /* Уменьшен размер для удобства нажатия */
-                font-size: 1em; /* Уменьшен размер шрифта */
+                padding: 12px 18px; /* Зменшений розмір для зручності натискання */
+                font-size: 1em; /* Зменшений розмір шрифту */
             }
             .scroll-down-arrow-container {
-                bottom: 20px; /* Увеличен отступ от низа */
-                right: 20px; /* Увеличен отступ от края */
+                bottom: 20px; /* Збільшений відступ від низу */
+                right: 20px; /* Збільшений відступ від краю */
             }
             .scroll-down-arrow-image {
-                width: 80px; /* Большой размер на телефонах */
+                width: 60px; /* Зменшуємо розмір на телефонах */
             }
         }
     </style>
@@ -345,13 +345,13 @@
     <div id="glowing-container" class="glowing-container"></div>
     
     <div class="control-panel">
-        <!-- Кнопка для отключения/включения анимации -->
-        <button id="toggleAnimation" class="control-button">Отключить анимацию</button>
+        <!-- Кнопка для скасування/увімкнення анімації -->
+        <button id="toggleAnimation" class="control-button">Вимкнути анімацію</button>
     </div>
 
-    <!-- Стрелка, которая призывает прокрутить вниз -->
+    <!-- Стрілка, яка закликає прокрутити вниз -->
     <div id="scrollDownArrow" class="scroll-down-arrow-container">
-        <img src="стрілка1.png" alt="Прокрутить вниз" class="scroll-down-arrow-image">
+        <img src="стрілка1.png" alt="Прокрутити вниз" class="scroll-down-arrow-image">
     </div>
 
     <div class="main-container">
@@ -440,6 +440,7 @@
             once: true,
         });
 
+        // Виправлено: тепер використовуємо локальні файли
         const leafImages = [
             "листок1.png",
             "листок2.png"
@@ -450,6 +451,19 @@
         let activeLeaves = 0;
         let animationId = null; 
 
+        // Глобальна змінна для нахилу
+        let tiltX = 0; 
+        let isDeviceOrientationSupported = false;
+
+        // Перевіряємо, чи підтримує браузер deviceorientation
+        if (window.DeviceOrientationEvent) {
+            window.addEventListener("deviceorientation", (event) => {
+                // gamma: нахил вліво/вправо (-90 до 90)
+                tiltX = event.gamma; 
+                isDeviceOrientationSupported = true;
+            });
+        }
+
         function createLeaf() {
             if (activeLeaves >= maxLeaves) {
                 return;
@@ -458,17 +472,45 @@
             const leaf = document.createElement('img');
             leaf.classList.add('leaf');
             leaf.src = leafImages[Math.floor(Math.random() * leafImages.length)];
-            leaf.style.width = `${Math.random() * 40 + 40}px`;
-            leaf.style.left = `${Math.random() * 80 + 10}%`;
             
-            const duration = Math.random() * 4 + 3;
+            // Робимо розмір залежно від екрана
+            const baseSize = window.innerWidth < 600 ? 50 : 100; // Збільшений розмір
+            const leafSize = Math.random() * baseSize + baseSize; 
+            leaf.style.width = `${leafSize}px`;
+
+            // left з урахуванням ширини листка
+            const maxLeft = window.innerWidth - leafSize;
+            leaf.style.left = `${Math.random() * maxLeft}px`;
+
+            // випадкове похитування
+            const wobbleDistance = (Math.random() * 100) - 50;
+            leaf.style.setProperty('--wobble-x', `${wobbleDistance}px`);
+
+            const duration = Math.random() * 6 + 4; 
             leaf.style.animation = `fall ${duration}s linear`;
             
             leafContainer.appendChild(leaf);
             activeLeaves++;
 
+            // оновлюємо позицію листа в процесі падіння, якщо гіроскоп підтримується
+            function updateLeafPosition() {
+                if (!leaf.parentElement || !isDeviceOrientationSupported) {
+                    return; 
+                }
+                const offset = tiltX * 1.5; // чутливість до нахилу
+                leaf.style.transform = `translateX(${offset}px)`;
+                requestAnimationFrame(updateLeafPosition);
+            }
+            
+            // Якщо гіроскоп підтримується, запускаємо оновлення позиції
+            if (isDeviceOrientationSupported) {
+                updateLeafPosition();
+            }
+
             leaf.addEventListener('animationend', () => {
-                leafContainer.removeChild(leaf);
+                if (leaf.parentElement) {
+                    leafContainer.removeChild(leaf);
+                }
                 activeLeaves--;
             });
         }
@@ -525,12 +567,12 @@
         toggleButton.addEventListener('click', () => {
             animationEnabled = !animationEnabled;
             if (animationEnabled) {
-                toggleButton.textContent = "Отключить анимацию";
+                toggleButton.textContent = "Вимкнути анімацію";
                 activeLeaves = 0;
                 activeCircles = 0;
                 animate();
             } else {
-                toggleButton.textContent = "Включить анимацию";
+                toggleButton.textContent = "Увімкнути анімацію";
                 if (animationId) {
                     cancelAnimationFrame(animationId);
                     animationId = null; 
@@ -542,16 +584,16 @@
             }
         });
         
-        // Новый код для стрелки прокрутки вниз
+        // Код для стрілки прокрутки вниз
         const scrollDownArrow = document.getElementById('scrollDownArrow');
         
         function checkScrollPosition() {
-            // Высота всего документа
+            // Висота всього документа
             const documentHeight = document.documentElement.scrollHeight;
-            // Текущая позиция прокрутки + высота видимой области
+            // Поточна позиція прокрутки + висота видимої області
             const scrollPosition = window.scrollY + window.innerHeight;
             
-            // Порог, чтобы скрыть стрелку, например, за 500px до конца страницы
+            // Поріг, щоб приховати стрілку, наприклад, за 500px до кінця сторінки
             const hideThreshold = documentHeight - 500; 
 
             if (scrollPosition > hideThreshold) {
@@ -561,12 +603,12 @@
             }
         }
 
-        // Слушатель событий для прокрутки
+        // Слухач подій для прокрутки
         window.addEventListener('scroll', checkScrollPosition);
-        // Проверяем позицию при загрузке страницы
+        // Перевіряємо позицію при завантаженні сторінки
         window.addEventListener('load', checkScrollPosition);
 
-        // Добавляем обработчик клика для прокрутки вниз на 1000px
+        // Додаємо обробник кліка для прокрутки вниз на 1000px
         scrollDownArrow.addEventListener('click', () => {
             window.scrollBy({
                 top: 1000,
